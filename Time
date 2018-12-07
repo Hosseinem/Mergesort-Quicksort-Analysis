@@ -1,0 +1,39 @@
+import random
+from timeit import Timer
+import matplotlib.pyplot as plt
+
+
+def Randomlist(size,length):
+    mylist = []
+    for i in range(size):
+        mylist.append(random.randint(0, length))
+    return mylist
+
+Length=[10, 100, 1000, 10000, 100000]
+Range=[10,100,200,1000]
+
+for i in Length:
+    print('For Length = '+str(i)+' :')
+    for j in Range:
+        mylst=Randomlist(i,j)
+        try:
+            s = 'quickSort(' + str(mylst)+',0,'+'('+str(len(mylst)-1)+')'+ ')'
+            t1 = Timer(s, "from Quicksort import quickSort")
+            time1 = t1.timeit(3)
+        except:
+            time1 = "Couldn't be compiled"
+        try:
+            s = 'mergesort(' + str(mylst)+ ')'
+            t2 = Timer(s, "from Mergesort import mergesort")
+            time2 = t2.timeit(3)
+        except:
+            time2 = "Couldn't be compiled"
+        Faster='Quick Sort'
+        if type(time1)== float and type(time2)== float:
+            if time1 > time2:
+                Faster = 'Merge Sort'
+            print('If Range = '+str(j).ljust(5,' ')+', Quicksort: '+'{0:.9f}'.format(time1)+' , Mergesort: '+'{0:.9f}'.format(time2)+' ==> '+Faster+' is '+'{0:.9f}'.format(abs(time2-time1))+' Faster!')
+        else:
+            if type(time1)!= float:
+                Faster = 'Merge Sort'
+            print('If Range = '+str(j).ljust(5,' ')+' , Quicksort: '+str(time1)+' , Mergesort: '+str(time2)+' ==> '+Faster+' is better!')
