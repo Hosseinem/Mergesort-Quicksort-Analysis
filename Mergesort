@@ -25,4 +25,3 @@ def mergesort(list):
     right = mergesort(right)
 
     return  merge(left, right)
-
